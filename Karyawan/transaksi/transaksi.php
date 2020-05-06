@@ -1,3 +1,11 @@
+<?php include 'no_transaksi.php';
+//print_r($_SESSION);
+if($_SESSION == null){ //jika session null atau kosong harus login terlebih dahulu
+	echo "<script>alert('Harus Login Terlebih Dahulu');</ script>";
+	echo "<meta http-equiv='refresh' content='1;url=login.php'>";
+}
+
+?>
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
         <li class="breadcrumb-item">
@@ -13,7 +21,7 @@
         <!-- general form elements -->
         <div class="card card-primary">
             <!-- form start -->
-            <form action="index.php?page=keranjang" method="post">
+            <form action="" method="post">
                 <div class="card-body">
                     <div class="form-group">
                         <label for="paket_id">Jenis Paket</label>
@@ -82,6 +90,32 @@
     <!-- /.card -->
 </div>
 
+<?php
+include "koneksi.php";
+if(isset($_POST['simpan'])){
+$paket_id = $_POST['paket_id'];
+$harga = $_POST['hargapaket'];
+$berat = $_POST['berat'];
+$total = $_POST['total'];
+$tgl_masuk = $_POST['tanggal'] ;
+$tgl_selesai = $_POST['tgl_selesai'];
+
+
+$sql = "INSERT INTO transaksi(paket_id, hargapaket, berat, total, tanggal, tgl_selesai) values ('$paket_id','$harga', '$berat', '$total', '$tgl_masuk', '$tgl_selesai')";
+$query = mysqli_query($koneksi, $sql);
+
+if($query){
+	echo '<script type="text/javascript">alert("Data berhasil disimpan")</script>';
+	echo "<meta http-equiv='refresh' content='1;url=index.php?page=transaksi'>";
+
+  }else {
+	echo "<scritp>alert('Data Gagal di simpan');</script>";
+
+}
+mysqli_close($koneksi);
+}
+
+?>
 
 <div class="col-md-9">
     <div class="card card-info">
@@ -104,6 +138,26 @@
                   </tr>
                 </thead>
                 <tbody>
+                <?php
+                   include "koneksi.php";
+                   $i = 0 + 1;
+                   $sql = mysqli_query($koneksi, "SELECT * FROM transaksi ORDER BY id");
+                   while ($hasil = mysqli_fetch_array($sql)) {
+                ?>
+  <tr>
+      <td style="text-align: center;"><?php echo $i; ?></td>
+      <td><?php echo $hasil['paket_id']; ?></td>
+      <td><?php echo $hasil['harga']; ?></td>
+      <td><?php echo $hasil['berat']; ?></td>
+      <td><?php echo $hasil['total']; ?></td>
+      <td><?php echo $hasil['tanggal']; ?></td>
+      <td><?php echo $hasil['tgl_selesai']; ?></td>
+     
+  </tr>
+  <?php
+      $i++;
+      }
+    ?>
                 </tbody>
                 <tfoot>
                 <tr>

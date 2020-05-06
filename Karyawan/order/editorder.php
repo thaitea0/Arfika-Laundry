@@ -50,7 +50,11 @@
                             </div>
                             <div class="form-group">
                                 <label>Status</label>
-                                <input class="form-control" value="<?php echo $hasil['status'] ?>" name="Status">
+                                
+                                    <select class="form-control value="<?php echo $hasil['status'] ?> name="Status">
+                                        <option>Dalam Proses</option>
+                                        <option>Di Jemput</option>
+                                    </select>
                             </div>
                             
                             <div class="form-group">
