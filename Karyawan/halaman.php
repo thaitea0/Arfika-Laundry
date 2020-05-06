@@ -18,6 +18,12 @@ if(isset($_GET['page'])){//jika ada nama yang bernama page atau itu nanti akan d
 		case 'ordertrx':
 			include "order/ordertrx.php";
 			break;
+		case 'profile':
+			include "profile/profile.php";
+			break;
+		case 'uprofile':
+				include "profile/update_profile.php";
+				break;
 			
 		}
 	}else{

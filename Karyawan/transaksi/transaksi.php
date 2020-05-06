@@ -91,7 +91,7 @@ if($_SESSION == null){ //jika session null atau kosong harus login terlebih dahu
 </div>
 
 <?php
-include "koneksi.php";
+//include "koneksi.php";
 if(isset($_POST['simpan'])){
 $paket_id = $_POST['paket_id'];
 $harga = $_POST['hargapaket'];

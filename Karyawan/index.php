@@ -43,7 +43,7 @@ include 'koneksi.php';
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-          <a class="nav-link" href="index.php?page=karyawan">
+          <a class="nav-link" href="index.php?page=profile">
             <i class="fa fa-fw fa-users"></i>
             <span class="nav-link-text">Profile</span>
           </a>
