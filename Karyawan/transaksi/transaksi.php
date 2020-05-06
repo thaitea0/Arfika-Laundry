@@ -17,24 +17,30 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="paket_id">Jenis Paket</label>
-                        <select class="form-control" name="paket_id" id="paket_id" onkeyup="isi_otomatis()">
+                        <select class="form-control" name="paket_id" id="paket_id" onchange="price(this.value)">
                             <option>- Pilih -</option>
                             <?php
                             $paket=mysqli_query($koneksi, "SELECT * FROM paket");?>
+                            
 						    <?php if(mysqli_num_rows($paket)) {?>
-		                    <?php while($data= mysqli_fetch_array($paket)) {?>
+                            <?php 
+                                $jsArrayhraga = "var prdharga = new Array();\n";
+                                while($data= mysqli_fetch_array($paket)) {?>
 		                    <option value="<?php echo $data["paket_id"]?>"> <?php echo $data["nama_paket"]?> </option>
-				            <?php } ?><?php } ?>
+                            <?php 
+                        $jsArrayhraga .= "prdharga['" . $data['paket_id'] . "'] = {hargap:'" . addslashes($data['harga']) . "'};\n";
+                        } ?><?php } ?>
                         </select>
                     </div>
                     <div class="form-group">
 				        <label for="harga"> Harga/Kg </label>
-				        <input type="text" name="harga" id="harga" value="0" class="form-control" placeholder="Harga Perkilo" disabled>
+				        <input type="text" name="harga" id="hargapaket"  class="form-control" placeholder="Harga Perkilo" readonly>
+                        <input type="hidden" id="hargapaketasli">
 			        </div>
                     <div class="form-group">
                         <label for="berat">Berat</label>
-                        <input type="number" class="form-control"  name="berat" placeholder="Masukan Berat perkilo"
-                            value="1">
+                        <input type="text" class="form-control" id="berat" name="berat" placeholder="Masukan Berat perkilo"
+                            >
                     </div>
                     <div class="form-group">
 				        <label for=""> Total </label>
@@ -62,22 +68,8 @@
                             Tambah</button>
                     </div>
             </form>
-            <script src="jquery-1.11.3.min.js"></script>
-		    <script type="text/javascript">
-			function isi_otomatis(){
-				var paket_id = $("#paket_id").val();
-				$.ajax({
-					url: 'ajax.php',
-					data:"paket_id= "+paket_id ,
-				}).success(function (data){
-					var json = data,
-					obj = JSON.parse(json);
-				
-					$('#harga').val(obj.harga);
-					
-				});
-			}
-		</script>	
+
+
             <!--
             <div class="form-group row">
                 <label for="kasir">Kasir</label>
@@ -130,3 +122,21 @@
 
     </div>
 </div>
+<script src="js/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript">
+
+$("#berat").keyup(function(){
+  var a = parseInt($("#berat").val());
+  var b = parseInt($("#hargapaketasli").val());
+  var c = a*b;
+  $("#total").val(c);
+});
+ 
+ <?php echo $jsArrayhraga; ?>  
+    function price(x){  
+    document.getElementById('hargapaket').value = prdharga[x].hargap;
+    document.getElementById('hargapaketasli').value = prdharga[x].hargap;   
+   
+    };
+		</script>	
