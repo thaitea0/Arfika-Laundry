@@ -45,6 +45,7 @@ include 'koneksi.php'
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="login1.php">About</a>
                 <a class="dropdown-item" href="index.php?page=paket">Paket</a>
+                <a class="dropdown-item" href="index.php?page=profile">Profile</a>
               </div>
           </li>
           <li class="nav-item dropdown">
@@ -56,7 +57,7 @@ include 'koneksi.php'
               </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#kontak">Logout</a>
+            <a class="nav-link" href="index.php?page=logout">Logout</a>
           </li>
        
         </ul>

@@ -83,8 +83,8 @@ include 'koneksi.php';
           </form>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+          <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="index.php?page=logout">
+            <i class="fa fa-fw fa-sign-out" href="index.php?page=logout"></i>Logout</a>
         </li>
       </ul>
     </div>

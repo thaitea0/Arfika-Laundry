@@ -4,7 +4,7 @@ if(isset($_GET['page'])){//jika ada nama yang bernama page atau itu nanti akan d
 
 	switch ($page) {
 		case 'logout': //judul halaman
-			include "logout.php";	//file halaman
+			include "../logout.php";	//file halaman
 			break; //selesai
 		case 'login1':
 			include "login1.php";
@@ -23,6 +23,9 @@ if(isset($_GET['page'])){//jika ada nama yang bernama page atau itu nanti akan d
 			break;
 		case 'paket':
 			include "info/paket.php";
+			break;
+		case 'profile':
+			include "info/profile.php";
 			break;
 				
 		}

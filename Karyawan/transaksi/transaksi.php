@@ -42,7 +42,7 @@ if($_SESSION == null){ //jika session null atau kosong harus login terlebih dahu
                     </div>
                     <div class="form-group">
 				        <label for="harga"> Harga/Kg </label>
-				        <input type="text" name="harga" id="hargapaket"  class="form-control" placeholder="Harga Perkilo" readonly>
+				        <input type="text" name="hargapaket" id="hargapaket"  class="form-control" placeholder="Harga Perkilo" readonly>
                         <input type="hidden" id="hargapaketasli">
 			        </div>
                     <div class="form-group">
@@ -56,9 +56,9 @@ if($_SESSION == null){ //jika session null atau kosong harus login terlebih dahu
                     </div>
                     <div class="form-group">
                         <label for="tanggal">Tanggal</label>
-                            <?php $tanggal = date('Y-m-d') ?>
-                        <input type="date" class="form-control" id="tanggal" placeholder="Tanggal"
-                            value="<?php echo $tanggal ?>" readonly>
+                            <?php $tgl_masuk = date('Y-m-d') ?>
+                        <input type="date" class="form-control" id="tanggal" name="tanggal" placeholder="Tanggal"
+                            value="<?php echo $tgl_masuk ?>" readonly>
                     </div>
                     <div class="form-group">
 			            <label for="tgl_selesai">Tanggal Selesai</label>
@@ -91,17 +91,18 @@ if($_SESSION == null){ //jika session null atau kosong harus login terlebih dahu
 </div>
 
 <?php
-//include "koneksi.php";
+include "koneksi.php";
+//if($_SERVER["REQUEST_METHOD"] == "POST"){}
 if(isset($_POST['simpan'])){
 $paket_id = $_POST['paket_id'];
-$harga = $_POST['hargapaket'];
+$hargapaketasli = $_POST['hargapaketasli'];
 $berat = $_POST['berat'];
 $total = $_POST['total'];
-$tgl_masuk = $_POST['tanggal'] ;
+$tanggal = $_POST['tanggal'] ;
 $tgl_selesai = $_POST['tgl_selesai'];
 
 
-$sql = "INSERT INTO transaksi(paket_id, hargapaket, berat, total, tanggal, tgl_selesai) values ('$paket_id','$harga', '$berat', '$total', '$tgl_masuk', '$tgl_selesai')";
+$sql = "INSERT INTO transaksi(paket_id, harga, berat, total, tgl_masuk, tgl_selesai) values ('$paket_id','$hargapaketasli', '$berat', '$total', '$tanggal', '$tgl_selesai')";
 $query = mysqli_query($koneksi, $sql);
 
 if($query){
@@ -131,7 +132,7 @@ mysqli_close($koneksi);
                   <th>Nama</th>
                   <th>Masuk</th>
                   <th>Selesai</th>
-                  <th>Paket</th>
+                  <th>Harga</th>
                   <th>Berat</th>
                   <th>Total</th>
                   <th style="text-align: center;" >Aksi</th>
@@ -141,17 +142,19 @@ mysqli_close($koneksi);
                 <?php
                    include "koneksi.php";
                    $i = 0 + 1;
-                   $sql = mysqli_query($koneksi, "SELECT * FROM transaksi ORDER BY id");
+                   $sql = mysqli_query($koneksi, "SELECT a.no_transaksi , b.nama_paket , a.tgl_masuk , a.tgl_selesai , a.harga , a.berat , a.total , a.status FROM transaksi AS a , paket AS b WHERE a.`paket_id`=b.`paket_id`");
                    while ($hasil = mysqli_fetch_array($sql)) {
                 ?>
   <tr>
       <td style="text-align: center;"><?php echo $i; ?></td>
-      <td><?php echo $hasil['paket_id']; ?></td>
+      <td><?php echo $hasil['no_transaksi']; ?></td>
+      <td><?php echo $hasil['nama_paket']; ?></td>
+      <td><?php echo $hasil['tgl_masuk']; ?></td>
+      <td><?php echo $hasil['tgl_selesai']; ?></td>
       <td><?php echo $hasil['harga']; ?></td>
       <td><?php echo $hasil['berat']; ?></td>
       <td><?php echo $hasil['total']; ?></td>
-      <td><?php echo $hasil['tanggal']; ?></td>
-      <td><?php echo $hasil['tgl_selesai']; ?></td>
+      <td><?php echo $hasil['status']; ?></td>
      
   </tr>
   <?php

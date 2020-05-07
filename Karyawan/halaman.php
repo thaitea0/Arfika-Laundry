@@ -4,7 +4,7 @@ if(isset($_GET['page'])){//jika ada nama yang bernama page atau itu nanti akan d
 
 	switch ($page) {
 		case 'logout': //judul halaman
-			include "logout.php";	//file halaman
+			include "../logout.php";	//file halaman
 			break; //selesai
 		case 'listorder':
 			include "order/listorder.php";
